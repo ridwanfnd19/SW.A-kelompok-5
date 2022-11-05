@@ -1,0 +1,46 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model rekening {
+  id          Int       @id @default(autoincrement())
+  uang        Decimal   @db.Decimal(10, 2) @default(0)
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @default(now()) @updatedAt
+  userId      Int       @unique 
+  user        user      @relation(fields: [userId], references: [id])
+}
+
+model user {
+  id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(150)
+  email       String    @unique() @db.VarChar(150)
+  password    String    @db.VarChar(150)
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @default(now()) @updatedAt
+  rekening    rekening?
+  todo        todo[]
+}
+
+enum Tipe {
+  pemasukan
+  pengeluaran
+}
+
+model todo {
+  id            Int       @id @default(autoincrement()) 
+  tipe          Tipe
+  nominal       Decimal   @db.Decimal(10, 2) @default(0)
+  description   String    @db.Text
+  created_at    DateTime  @default(now())
+  userId        Int
+  user          user      @relation(fields: [userId], references: [id]) 
+}
