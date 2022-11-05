@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-// const routes = require('./routes')
+const routes = require('./routes')
 
 const app = express()
 const port = 8000
@@ -16,7 +16,7 @@ app.get('/', async (req, res) => {
     })
 })
 
-// routes(app)
+routes(app)
 
 app.listen(port, () => {
     console.log(`Server running di http://localhost:${port}`)

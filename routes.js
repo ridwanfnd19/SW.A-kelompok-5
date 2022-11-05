@@ -1,9 +1,7 @@
 const AuthController = require("./controllers/AuthController")
 const TodoController = require("./controllers/TodoController")
-const UserController = require("./controllers/UserController")
 
 const _routes = [
-    ['users', UserController],
     ['', AuthController],
     ['todo', TodoController]
 ]

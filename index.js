@@ -2,7 +2,6 @@ const { PrismaClient } = require('@prisma/client');
 const bcrypt= require('bcrypt')
 
 const prisma = new PrismaClient();
-//ini Coment
 
 async function main() {
     // await prisma.user.create({
