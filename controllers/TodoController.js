@@ -6,7 +6,7 @@ const verifyToken = require('../middleware/authJwt')
 const TodoController = Router()
 
 TodoController.get('/', verifyToken, async (req, res) => {
-    const login = await m$auth.getData(req)
+    const login = await m$auth.getList(req)
 
     respose.sendResponse(res, login)
 })
@@ -18,13 +18,7 @@ TodoController.post('/in', verifyToken, async (req, res) => {
 })
 
 TodoController.post('/out', verifyToken, async (req, res) => {
-    const login = await m$auth.moneyOut(req)
-
-    respose.sendResponse(res, login)
-})
-
-TodoController.get('/history', verifyToken, async (req, res) => {
-    const login = await m$auth.moneyOut(req)
+    const login = await m$auth.createTodoOut(req)
 
     respose.sendResponse(res, login)
 })

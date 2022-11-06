@@ -1,11 +1,14 @@
 const prisma = require('../helpers/database')
 const joi = require('joi')
-const getRek = require('../helpers/getrekeneing')
 
 class _todo {
-    getData = async(req) => {
+    getList = async(req) => {
         try {
-            const data = await getRek(req.id)
+            const data = await prisma.todo.findMany({
+                where: {
+                    userId: req.id
+                }
+            })
 
             return {
                 status: 'true',
@@ -13,7 +16,7 @@ class _todo {
                 data: data
             }
         } catch (error) {
-            console.log("GetData todo module Error:", error)
+            console.log("GetList todo module Error:", error)
 
             return {
                 status: false,
@@ -26,7 +29,7 @@ class _todo {
         try {
             const schema = joi.object({
                 nominal: joi.number().positive().required(),
-                description: joi.string(),
+                description: joi.string().required(),
                 userId: joi.any().forbidden(),
                 tipe: joi.any().forbidden(),
                 created_at: joi.any().forbidden(),
@@ -53,20 +56,6 @@ class _todo {
                 }
             })
 
-
-            // ambil nilai saldo
-            const saldo = await getRek(req.id)
-
-            // set ke rekenening
-            await prisma.rekening.update({
-                where: {
-                    userId: req.id
-                },
-                data : {
-                    uang: Number(saldo.uang) + Number(req.body.nominal)
-                }
-            })
-
             return {
                 status: 'true',
                 code: 201,
@@ -83,9 +72,42 @@ class _todo {
         }
     }
 
-    createTodoOut = async () => {
+    createTodoOut = async (req) => {
         try {
-            
+            const schema = joi.object({
+                nominal: joi.number().positive().required(),
+                description: joi.string().required(),
+                userId: joi.any().forbidden(),
+                tipe: joi.any().forbidden(),
+                created_at: joi.any().forbidden(),
+            }).options({ abortEarly: false })
+
+            const validation = schema.validate(req.body)
+
+            if (validation.error) {
+                const errorDetails = validation.error.details.map(detail => detail.message)
+
+                return {
+                    status: false,
+                    code: 422,
+                    error: errorDetails.join(', ')
+                }
+            }
+
+            const add = await prisma.todo.create({
+                data: {
+                    nominal : req.body.nominal, 
+                    description: req.body.description,
+                    tipe : 'pengeluaran',
+                    userId: req.id
+                }
+            })
+
+            return {
+                status: 'true',
+                code: 202,
+                data: add
+            }
         } catch (error) {
             console.log("Create todo out module Error:", error)
 

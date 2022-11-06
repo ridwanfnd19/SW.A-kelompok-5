@@ -33,24 +33,6 @@ async function main() {
             }
         },
     })
-    
-    await prisma.rekening.create({
-        data: {
-            userId: 1
-        },
-    })
-
-    await prisma.rekening.create({
-        data: {
-            userId: 2
-        },
-    })
-
-    await prisma.rekening.create({
-        data: {
-            userId: 3
-        },
-    })
 
     const allUsers = await prisma.user.findMany()
 
