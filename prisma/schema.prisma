@@ -39,7 +39,7 @@ model todo {
   id            Int       @id @default(autoincrement()) 
   tipe          Tipe
   nominal       Decimal   @db.Decimal(10, 2) @default(0)
-  description   String    @db.Text
+  description   String?   @db.Text
   created_at    DateTime  @default(now())
   userId        Int
   user          user      @relation(fields: [userId], references: [id]) 

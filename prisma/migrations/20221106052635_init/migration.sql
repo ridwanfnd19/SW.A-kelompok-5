@@ -28,7 +28,7 @@ CREATE TABLE `todo` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `tipe` ENUM('pemasukan', 'pengeluaran') NOT NULL,
     `nominal` DECIMAL(10, 2) NOT NULL DEFAULT 0,
-    `description` TEXT NOT NULL,
+    `description` TEXT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `userId` INTEGER NOT NULL,
 
