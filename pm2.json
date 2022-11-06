@@ -1,28 +1,31 @@
 { 
-  "apps": [
-    {
-      "name": "api-moneyrecords ",
-      "instances": 1,
-      "script": "app.js",
-      "watch": false,
-      "ignore_watch": [
-        "node_modules",
-        "./.git"
-      ],
-      "exec_mode": "cluster",
-      "interpreter_args": "--harmony",
-      "error_file": "/var/tmp/my_application/error.log",
-      "min_uptime": 500,
-      "max_restarts": 10,
-      "restart_delay": 1000,
-      "env_development": {
-        "NODE_ENV": "development",
-        "API_KEY": "albnxmzndf8"
-      },
-      "env_production": {
-        "NODE_ENV": "production",
-        "API_KEY": "praXnafinDef!1"
-      }
-    }
+// #run with process.json configuration file for development environment 
+// pm2 start pm2.json --env development
+
+    "apps": [
+        {
+        "name": "api-moneyrecords ",
+        "instances": 1,
+        "script": "app.js",
+        "watch": false,
+        "ignore_watch": [
+            "node_modules",
+            "./.git"
+        ],
+        "exec_mode": "cluster",
+        "interpreter_args": "--harmony",
+        "error_file": "/var/tmp/my_application/error.log",
+        "min_uptime": 500,
+        "max_restarts": 10,
+        "restart_delay": 1000,
+        "env_development": {
+            "NODE_ENV": "development",
+            "API_KEY": "albnxmzndf8"
+        },
+        "env_production": {
+            "NODE_ENV": "production",
+            "API_KEY": "praXnafinDef!1"
+        }
+        }
   ]
 }
