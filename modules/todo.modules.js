@@ -73,7 +73,7 @@ class _todo {
                 data: add
             }
         } catch (error) {
-            console.log("GetData todo module Error:", error)
+            console.log("Create todo in module Error:", error)
 
             return {
                 status: false,
@@ -83,8 +83,18 @@ class _todo {
         }
     }
 
-    moneyOut = () => {
+    createTodoOut = async () => {
+        try {
+            
+        } catch (error) {
+            console.log("Create todo out module Error:", error)
 
+            return {
+                status: false,
+                code: 402,
+                error
+            }
+        }
     }
 }
 
